@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/DAOFactory.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/UsuarioDAOJDBC.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/CustomRenderer.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/FrmDevolucao.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/EmprestimoDAO.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/FrmPrincipal1.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/EmprestimoDAOJDBC.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/modelo/Livro.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/FrmEmprestimo.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/LivroDAO.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/FrmAcervo.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/dao/LivroDAOJDBC.java</file>
-            <file>file:/C:/Users/aluno/Documents/NetBeansProjects/Biblioteca.2025.1-main/src/aplicacao/FrmUsuario.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/aplicacao/FrmPrincipal1.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/aplicacao/FrmAcervo.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/recurso/config.properties</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/dao/DAOGenerico.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/modelo/Livro.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/dao/LivroDAOJDBC.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/aplicacao/FrmDevolucao.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Biblioteca/Biblioteca.2025.1-main/src/dao/DAOFactory.java</file>
         </group>
     </open-files>
 </project-private>

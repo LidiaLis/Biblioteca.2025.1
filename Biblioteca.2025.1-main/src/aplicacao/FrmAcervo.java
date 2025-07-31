@@ -5,17 +5,29 @@
  */
 package aplicacao;
 
+import dao.DAOFactory;
+import dao.LivroDAO;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+import modelo.Livro;
+
 /**
  *
  * @author aluno
  */
 public class FrmAcervo extends javax.swing.JFrame {
 
+    LivroDAO livroDAO = DAOFactory.criarLivroDAO();
+    DefaultTableModel modelo = null;
+   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
     /**
-     * Creates new form FrmAcerv
+     * Creates new form frmAcervo
      */
     public FrmAcervo() {
         initComponents();
+        modelo = (DefaultTableModel) tblAcervo.getModel();
+        preencherTabela();
     }
 
     /**
@@ -102,6 +114,11 @@ public class FrmAcervo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblAcervo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tblAcervoFocusGained(evt);
+            }
+        });
         ScrollLivro.setViewportView(tblAcervo);
 
         jLabel1.setText("Gênero");
@@ -167,9 +184,31 @@ public class FrmAcervo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblAcervoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblAcervoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblAcervoFocusGained
+
     /**
      * @param args the command line arguments
      */
+    
+     private void preencherTabela() {
+        modelo.getDataVector().clear();
+        try {
+            for (Livro livro : livroDAO.listar()) {
+                modelo.addRow(new Object[]{livro.getId_livro(),
+                                           livro.getId_usuario(),
+                                           livro.getGenero(), 
+                                           livro.getTitulo(),
+                                           livro.getAutor(),
+                                           formato.format(livro.getData_doacao()),
+                                           livro.getDisponivel()}
+                               );
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
