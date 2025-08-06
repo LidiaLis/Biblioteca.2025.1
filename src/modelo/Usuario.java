@@ -3,7 +3,7 @@ package modelo;
 public class Usuario{
     private int id_usuario;
     private String nome;
-    private int telefone;
+    private String telefone;
     private String email;
     private String tipo_usuario;
 
@@ -30,11 +30,11 @@ public class Usuario{
         this.nome = nome;
     }
     
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone){
+    public void setTelefone(String telefone){
         this.telefone = telefone;
     }
 
@@ -47,11 +47,12 @@ public class Usuario{
     }
 
     
-
+    public String getDescricaoCompleta() {
+    return "Usuario{" + "id=" + id_usuario + ", nome=" + nome + ", telefone=" + telefone +", email=" + email + ", tipo_usuario=" + tipo_usuario +  '}';
+    }
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id_usuario + ", nome=" + nome + ", telefone=" + telefone +", email=" + email + ", tipo_usuario=" + tipo_usuario +  '}';
+        return nome;
     }
-    
-    
+        
 }

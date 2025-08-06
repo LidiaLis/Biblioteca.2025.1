@@ -42,16 +42,17 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 244));
+        jPanel1.setMaximumSize(null);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 204));
 
-        jPanel3.setBackground(new java.awt.Color(250, 212, 127));
+        jPanel3.setBackground(new java.awt.Color(255, 231, 178));
 
         jLabel1.setBackground(new java.awt.Color(255, 217, 133));
         jLabel1.setFont(new java.awt.Font("Marcha", 0, 48)); // NOI18N
         jLabel1.setText("Biblioteca Comunitária");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(153, 153, 0)));
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 102, 153)));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -79,13 +80,13 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,16 +94,17 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(21, 21, 21))))
         );
 
-        BtnUsuario.setBackground(new java.awt.Color(255, 217, 133));
+        BtnUsuario.setBackground(new java.awt.Color(255, 231, 178));
         BtnUsuario.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         BtnUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/ancestors.png"))); // NOI18N
         BtnUsuario.setText("  Usuários  ");
@@ -124,7 +126,7 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
             }
         });
 
-        BtnAcervo.setBackground(new java.awt.Color(255, 217, 133));
+        BtnAcervo.setBackground(new java.awt.Color(255, 231, 178));
         BtnAcervo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         BtnAcervo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/stack-of-books.png"))); // NOI18N
         BtnAcervo.setText("Nosso Acervo");
@@ -135,7 +137,7 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
             }
         });
 
-        BtnEmprestimo.setBackground(new java.awt.Color(255, 217, 133));
+        BtnEmprestimo.setBackground(new java.awt.Color(255, 231, 178));
         BtnEmprestimo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         BtnEmprestimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/signing.png"))); // NOI18N
         BtnEmprestimo.setText("  Empréstimo ");
@@ -146,7 +148,7 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
             }
         });
 
-        BtnDevolucao.setBackground(new java.awt.Color(255, 217, 133));
+        BtnDevolucao.setBackground(new java.awt.Color(255, 231, 178));
         BtnDevolucao.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         BtnDevolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/exchange.png"))); // NOI18N
         BtnDevolucao.setText("Devolução");
@@ -161,9 +163,8 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnEmprestimo)
                     .addComponent(BtnAcervo))
@@ -171,7 +172,8 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnUsuario)
                     .addComponent(BtnDevolucao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(84, 84, 84))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +187,7 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnEmprestimo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,16 +195,14 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -210,28 +210,27 @@ public class FrmPrincipal1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuarioActionPerformed
-        // TODO add your handling code here:
+        new FrmUsuario().setVisible(true);
     }//GEN-LAST:event_BtnUsuarioActionPerformed
 
     private void BtnAcervoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAcervoActionPerformed
-        // TODO add your handling code here:
+        new FrmAcervo().setVisible(true);
     }//GEN-LAST:event_BtnAcervoActionPerformed
 
     private void BtnEmprestimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEmprestimoActionPerformed
-        // TODO add your handling code here:
+        new FrmEmprestimo().setVisible(true);
     }//GEN-LAST:event_BtnEmprestimoActionPerformed
 
     private void BtnDevolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDevolucaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnDevolucaoActionPerformed
+        new FrmDevolucao().setVisible(true);
+     }//GEN-LAST:event_BtnDevolucaoActionPerformed
 
     private void BtnUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuarioMouseClicked
               
-        BtnUsuario.setBackground(new java.awt.Color(204,204,0));
     }//GEN-LAST:event_BtnUsuarioMouseClicked
 
     private void BtnUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuarioMouseReleased
-        BtnUsuario.setBackground(new java.awt.Color(255,217,133));
+
     }//GEN-LAST:event_BtnUsuarioMouseReleased
 
     private void BtnUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnUsuarioMousePressed

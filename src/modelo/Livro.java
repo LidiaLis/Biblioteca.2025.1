@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Livro{
     private int id_livro;
-    private Usuario id_usuario;
+    private Usuario id_doador;
     private String titulo;
     private String autor;
     private String genero;
@@ -19,12 +19,12 @@ public class Livro{
         this.id_livro=id_livro;
     }
     
-    public Usuario getId_usuario() {
-        return id_usuario;
+    public Usuario getId_doador() {
+        return id_doador;
     }
 
-    public void setId_usuario(Usuario id_usuario) {
-        this.id_usuario =id_usuario;
+    public void setId_doador(Usuario id_doador) {
+        this.id_doador =id_doador;
     }
     
     
@@ -72,7 +72,7 @@ public class Livro{
 
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id_livro + ", id_usuario=" + id_usuario + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero + ", data_doacao=" + data_doacao + ", disponivel=" + disponivel +  '}';
+        return "Livro{" + "id=" + id_livro + ", id_doador=" + id_doador + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero + ", data_doacao=" + data_doacao + ", disponivel=" + disponivel +  '}';
     }
     
     

@@ -86,7 +86,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
                 Usuario usuario = new Usuario();
                 usuario.setId_usuario(rset.getInt("id_usuario"));
                 usuario.setNome(rset.getString("nome"));
-                usuario.setTelefone(rset.getInt("telefone"));
+                usuario.setTelefone(rset.getString("telefone"));
                 usuario.setEmail(rset.getString("email"));
                 usuario.setTipo_usuario(rset.getString("tipo_usuario"));
                 usuarios.add(usuario);

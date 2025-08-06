@@ -1,26 +1,71 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package aplicacao;
 
-import java.awt.Color;
+import dao.DAOFactory;
+import dao.LivroDAO;
+import dao.LivroDAOJDBC;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import modelo.Livro;
 
 /**
  *
- * @author Usuario
+ * @author aluno
  */
 public class FrmAcervo extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmAcervo.class.getName());
+
+    LivroDAO livroDAO = DAOFactory.criarLivroDAO();
+    DefaultTableModel modelo = null;
+   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     /**
-     * Creates new form FrmAcervo
+     * Creates new form frmAcervo
      */
     public FrmAcervo() {
         initComponents();
-
+        modelo = (DefaultTableModel) tblAcervo.getModel();
+        preencherTabela();
+        atualizarTabela();
     }
+    
+    private void atualizarTabela() {
+    DefaultTableModel model = (DefaultTableModel) tblAcervo.getModel();
+    model.setRowCount(0);
+
+    LivroDAO dao = new LivroDAOJDBC();
+    List<Livro> livros = dao.listar();
+
+    for (Livro livro : livros) {
+        model.addRow(new Object[]{
+            livro.getId_livro(),
+            livro.getId_doador(),
+            livro.getTitulo(),
+            livro.getAutor(),
+            livro.getGenero(),
+            livro.getData_doacao(),
+            livro.getDisponivel()
+        });
+    }
+    }
+  
+
+
+
+
+   
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,113 +77,52 @@ public class FrmAcervo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        campoBusca = new javax.swing.JTextField();
-        campoBusca.setForeground(java.awt.Color.GRAY);
-        campoBusca.setText(" Digite o nome do Livro ou Autor(a) para busca ");
-
-        campoBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (campoBusca.getText().equals("Digite o nome do Livro ou Autor(a) para busca")) {
-                    campoBusca.setText("");
-                    campoBusca.setForeground(java.awt.Color.BLACK);
-                }
-            }
-
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (campoBusca.getText().isEmpty()) {
-                    campoBusca.setForeground(java.awt.Color.GRAY);
-                    campoBusca.setText("Digite o nome do Livro ou Autor(a) para busca");
-                }
-            }
-        });
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         ScrollLivro = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        tblAcervo = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        btnEditar = new javax.swing.JButton();
+        btnInserir1 = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        cbDisponivel = new javax.swing.JComboBox<>();
+        cbDoador = new javax.swing.JComboBox<>();
+        cbGenero = new javax.swing.JComboBox<>();
+        cbTitulo = new javax.swing.JComboBox<>();
+        cbAutor = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
-
-        jPanel2.setBackground(new java.awt.Color(204, 204, 0));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 694, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
-
-        campoBusca.setBorder(null);
-        campoBusca.setHighlighter(null);
-        campoBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                campoBuscaFocusGained(evt);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                campoBuscaFocusLost(evt);
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
-        campoBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoBuscaActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/search.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(campoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "item", " " }));
-        jComboBox1.setToolTipText("");
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 244));
 
         ScrollLivro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ScrollLivro.setForeground(new java.awt.Color(255, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAcervo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID Livro", "Doador", "Gênero", "Titulo", "Autor", "Data Doação", "Disponivel"
+                "ID Livro", "Doador", "Titulo", "Autor", "Gênero", "Data Doação", "Disponivel"
             }
         ) {
             Class[] types = new Class [] {
@@ -156,144 +140,417 @@ public class FrmAcervo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        ScrollLivro.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(90);
-        }
+        tblAcervo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tblAcervoFocusGained(evt);
+            }
+        });
+        ScrollLivro.setViewportView(tblAcervo);
 
-        jLabel1.setText("Gênero");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "   ", "Sim", "Não", " " }));
-        jComboBox3.setToolTipText("");
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/edit.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Disponivel");
+        btnInserir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/image-gallery.png"))); // NOI18N
+        btnInserir1.setText("Inserir");
+        btnInserir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserir1ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ScrollLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jLabel1)
-                                        .addGap(65, 65, 65)
-                                        .addComponent(jLabel3)))
-                                .addGap(46, 46, 46)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(jLabel4))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurso/delete.png"))); // NOI18N
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(0, 153, 204));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(10, 10, 10)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ScrollLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 653, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel2.setBackground(new java.awt.Color(255, 255, 244));
 
-        pack();
+        cbDisponivel.setToolTipText("Selecione para realizar a busca.");
+        cbDisponivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDisponivelActionPerformed(evt);
+            }
+        });
+
+        cbDoador.setModel(new javax.swing.DefaultComboBoxModel(
+            java.util.stream.IntStream.range(0, tblAcervo.getRowCount())
+            .mapToObj(i -> tblAcervo.getValueAt(i, 1).toString())
+            .toArray()
+        )
+    );
+    cbDoador.setToolTipText("Selecione para realizar a busca.");
+    cbDoador.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            cbDoadorFocusGained(evt);
+        }
+    });
+    cbDoador.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cbDoadorActionPerformed(evt);
+        }
+    });
+
+    cbGenero.setToolTipText("Selecione para realizar a busca.");
+    cbGenero.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cbGeneroActionPerformed(evt);
+        }
+    });
+
+    cbTitulo.setToolTipText("Selecione para realizar a busca.");
+    cbTitulo.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cbTituloActionPerformed(evt);
+        }
+    });
+
+    cbAutor.setToolTipText("Selecione para realizar a busca.");
+    cbAutor.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cbAutorActionPerformed(evt);
+        }
+    });
+
+    jLabel5.setText("  Titulo  ");
+    jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+
+    jLabel6.setText("  Autor  ");
+    jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+
+    jLabel1.setText("  Gênero  ");
+    jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+
+    jLabel7.setText("  Doador  ");
+    jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+
+    jLabel4.setText("   Disponivel   ");
+    jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    jPanel2.setLayout(jPanel2Layout);
+    jPanel2Layout.setHorizontalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(35, 35, 35)
+                    .addComponent(cbDoador, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(69, 69, 69)
+                    .addComponent(jLabel7)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(83, 83, 83)
+                    .addComponent(jLabel1)
+                    .addGap(122, 122, 122)
+                    .addComponent(jLabel5))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(45, 45, 45)
+                    .addComponent(cbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(cbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(90, 90, 90)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addComponent(cbDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(56, 56, 56))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addComponent(jLabel4)
+                    .addGap(84, 84, 84))))
+    );
+    jPanel2Layout.setVerticalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addContainerGap(25, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel7)
+                .addComponent(jLabel1)
+                .addComponent(jLabel5)
+                .addComponent(jLabel6)
+                .addComponent(jLabel4))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cbDoador, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap())
+    );
+
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(ScrollLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(152, 152, 152))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnInserir1)
+                            .addGap(52, 52, 52)
+                            .addComponent(btnEditar)
+                            .addGap(51, 51, 51)
+                            .addComponent(btnApagar)
+                            .addGap(255, 255, 255)))
+                    .addComponent(jLabel3))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+    );
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(ScrollLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(30, 30, 30)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInserir1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(38, Short.MAX_VALUE))
+    );
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+
+    pack();
+    setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscaActionPerformed
+    private void tblAcervoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblAcervoFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoBuscaActionPerformed
+    }//GEN-LAST:event_tblAcervoFocusGained
 
-    private void campoBuscaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBuscaFocusGained
-    campoBusca.setText("Digite o nome do Livro ou Autor(a) para busca");
-    campoBusca.setForeground(Color.GRAY);
-    campoBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-    @Override
-    public void focusGained(java.awt.event.FocusEvent e) {
-        if (campoBusca.getText().equals("Digite o nome do Livro ou Autor(a) para busca")) {
-            campoBusca.setText("");
-            campoBusca.setForeground(Color.BLACK);
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnInserir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserir1ActionPerformed
+    DialogInserir dialog = new DialogInserir(this, true);
+    dialog.setLocationRelativeTo(this);
+    dialog.setVisible(true);
+
+    atualizarTabela();
+
+    }//GEN-LAST:event_btnInserir1ActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+    int linhaSelecionada = tblAcervo.getSelectedRow();
+
+    if (linhaSelecionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecione a linha a ser apagada!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    int confirmacao = JOptionPane.showConfirmDialog(
+        this,
+        "Tem certeza que deseja apagar essa linha?",
+        "Confirmar exclusão",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirmacao == JOptionPane.YES_OPTION) {
+        int idLivro = (int) tblAcervo.getValueAt(linhaSelecionada, 0);
+
+        try {
+            // Usa a implementação correta do DAO
+            LivroDAO dao = new LivroDAOJDBC();
+
+            // Tenta apagar do banco
+            int sucesso = dao.apagar(idLivro);
+
+            if (sucesso > 0) {
+                ((DefaultTableModel) tblAcervo.getModel()).removeRow(linhaSelecionada);
+                JOptionPane.showMessageDialog(this, "Livro apagado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao apagar o livro!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao tentar apagar o livro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-});
+    }//GEN-LAST:event_btnApagarActionPerformed
 
-    }//GEN-LAST:event_campoBuscaFocusGained
+    private void cbDisponivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDisponivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDisponivelActionPerformed
 
-    private void campoBuscaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_campoBuscaFocusLost
-        campoBusca.setText("Digite o nome do Livro ou Autor(a) para busca");
-    campoBusca.setForeground(Color.GRAY);
-    campoBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-    @Override
-    public void focusLost(java.awt.event.FocusEvent e) {
-        if (campoBusca.getText().isEmpty()) {
-            campoBusca.setForeground(Color.GRAY);
-            campoBusca.setText("Digite o nome do Livro ou Autor(a) para busca");
-        }
+    private void cbAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAutorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAutorActionPerformed
+
+    private void cbGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGeneroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbGeneroActionPerformed
+
+    private void cbTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTituloActionPerformed
+
+    private void cbDoadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbDoadorFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDoadorFocusGained
+
+    private void cbDoadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDoadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDoadorActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+DefaultComboBoxModel<String> modeloDoador = new DefaultComboBoxModel<>();
+
+for (int i = 0; i < tblAcervo.getRowCount(); i++) {
+    Object valor = tblAcervo.getValueAt(i, 1); // Coluna 1 (ajuste se necessário)
+    if (valor != null) {
+        modeloDoador.addElement(valor.toString());
     }
-    });
-    }//GEN-LAST:event_campoBuscaFocusLost
+}
+cbDoador.setModel(modeloDoador);
+//
+DefaultComboBoxModel<String> modeloGenero = new DefaultComboBoxModel<>();
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+for (int i = 0; i < tblAcervo.getRowCount(); i++) {
+    Object valor = tblAcervo.getValueAt(i, 4); // Coluna 1 (ajuste se necessário)
+    if (valor != null) {
+        modeloGenero.addElement(valor.toString());
+    }
+}
+cbGenero.setModel(modeloGenero);
+//
+DefaultComboBoxModel<String> modeloTitulo= new DefaultComboBoxModel<>();
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+for (int i = 0; i < tblAcervo.getRowCount(); i++) {
+    Object valor = tblAcervo.getValueAt(i, 2); // Coluna 1 (ajuste se necessário)
+    if (valor != null) {
+        modeloTitulo.addElement(valor.toString());
+    }
+}
+cbTitulo.setModel(modeloTitulo);
+//
+DefaultComboBoxModel<String> modeloAutor = new DefaultComboBoxModel<>();
+
+for (int i = 0; i < tblAcervo.getRowCount(); i++) {
+    Object valor = tblAcervo.getValueAt(i, 3); // Coluna 1 (ajuste se necessário)
+    if (valor != null) {
+        modeloAutor.addElement(valor.toString());
+    }
+}
+cbAutor.setModel(modeloAutor);
+//
+DefaultComboBoxModel<String> modeloDisponivel = new DefaultComboBoxModel<>();
+
+for (int i = 0; i < tblAcervo.getRowCount(); i++) {
+    Object valor = tblAcervo.getValueAt(i, 6); // Coluna 1 (ajuste se necessário)
+    if (valor instanceof Boolean) {
+        boolean disponivel = (Boolean) valor;
+        modeloDisponivel.addElement(disponivel ? "Sim" : "Não");
+    }
+}
+cbDisponivel.setModel(modeloDisponivel);
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ajustarLarguraColunas(tblAcervo);
+        tblAcervo.getColumnModel().getColumn(0).setPreferredWidth(60);   // Coluna ID
+        tblAcervo.getColumnModel().getColumn(6).setPreferredWidth(60);  // Coluna Disponivel
+        tblAcervo.getColumnModel().getColumn(5).setPreferredWidth(80);   // Coluna Data
+
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
      */
+     
+     private void preencherTabela() {
+        modelo.getDataVector().clear();
+        try {
+            for (Livro livro : livroDAO.listar()) {
+                modelo.addRow(new Object[]{livro.getId_livro(),
+                                           livro.getId_doador().getNome(),
+                                           livro.getTitulo(),
+                                           livro.getAutor(),
+                                           livro.getGenero(),
+                                           formato.format(livro.getData_doacao()),
+                                           livro.getDisponivel()}
+                               );
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    public void ajustarLarguraColunas(JTable table) {
+    for (int col = 0; col < table.getColumnCount(); col++) {
+        TableColumn column = table.getColumnModel().getColumn(col);
+        int larguraMaxima = 0;
+
+        for (int row = 0; row < table.getRowCount(); row++) {
+            TableCellRenderer renderer = table.getCellRenderer(row, col);
+            Component comp = table.prepareRenderer(renderer, row, col);
+            larguraMaxima = Math.max(comp.getPreferredSize().width, larguraMaxima);
+        }
+
+        // Adiciona uma margem extra
+        larguraMaxima += 10;
+        column.setPreferredWidth(larguraMaxima);
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -307,27 +564,45 @@ public class FrmAcervo extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmAcervo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmAcervo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmAcervo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmAcervo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmAcervo().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmAcervo().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollLivro;
-    private javax.swing.JTextField campoBusca;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnInserir1;
+    private javax.swing.JComboBox<String> cbAutor;
+    private javax.swing.JComboBox<String> cbDisponivel;
+    private javax.swing.JComboBox<String> cbDoador;
+    private javax.swing.JComboBox<String> cbGenero;
+    private javax.swing.JComboBox<String> cbTitulo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAcervo;
     // End of variables declaration//GEN-END:variables
 }
